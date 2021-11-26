@@ -1,14 +1,14 @@
-import requests, json
+import requests, os
 from requests import auth
 
 class Ticket:
 
-    def __init__(self, email, password, subdomain):
+    def __init__(self, email, api_token, subdomain):
        self.email = email
-       self.password = password
        self.subdomain = subdomain
        self.ticketurl = 'https://' + self.subdomain + '.zendesk.com/api/v2/tickets.json'
        self.pageurl = 'https://' + self.subdomain + '.zendesk.com/api/v2/tickets.json?page[size]=25'
+       self.api_token = api_token
 
     def greeting(self):
         greeting = "\n\tWELCOME TO THE TICKET VIEWER!\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
@@ -51,7 +51,7 @@ class Ticket:
             'Content-Type': 'application/json',
         }
         try:
-            response = requests.get(url, headers=headers, auth=(self.email,self.password))
+            response = requests.get(url, auth=(self.email + '/token', self.api_token))
         except requests.exceptions.RequestException as e:  
             raise SystemExit(e)
         return response.json()
@@ -80,11 +80,7 @@ class Ticket:
                         break
                     else:
                         print('\nInvalid selection. \n')
-                        x = input('\n\nTo view next page, type 1.\nTo view previous page, type 2\nTo view the main menu, type 3\n\n')
-        
-
-                    
-
+                        x = input('\n\nTo view next page, type 1.\nTo view previous page, type 2\nTo view the main menu, type 3\n\n')        
             
     def switchPage(self, url = None):
         if url == None:
@@ -117,7 +113,7 @@ class Ticket:
         return len(jsonTickets['tickets'])
     
 
-obj = Ticket('email@email.com','password', 'subdomain')
+obj = Ticket('email@email.com','token', 'subdomain')
 obj.greeting()
 obj.startMenu()
 
