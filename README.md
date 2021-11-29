@@ -3,11 +3,11 @@
 ## Ticket Viewer
 
 Zendesk is a customer service tool that allows the creation and management of support tickets. This app will:
-● Connect to the Zendesk API
-● Request all the tickets for your account
-● Display them in a list
-● Display individual ticket details
-● Page through tickets when more than 25 are returned
+- Connect to the Zendesk API
+- Request all the tickets for your account
+- Display them in a list
+- Display individual ticket details
+- Page through tickets when more than 25 are returned
 
 I used Python 3 and Python's 'Requests' and 'OS' libraries to accomplish this task. I chose to make multiple requests from the API instead of using caching to conserve memory at the expense of reduced speed optimization.
 
